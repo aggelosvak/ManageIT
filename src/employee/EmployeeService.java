@@ -1,5 +1,5 @@
-package com.yourproject.service;
-
+package employee;
+import employee.Employee;
 import java.util.List;
 
 public class EmployeeService {

@@ -1,3 +1,7 @@
+package report;
+
+import java.security.Timestamp;
+
 public class Report {
     private String reportId;            // Unique identifier for the report
     private Timestamp timestampReport; // Time when the report was generated

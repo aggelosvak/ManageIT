@@ -1,5 +1,7 @@
 package notification;
 
+import user.Review;
+
 import java.time.LocalDateTime;
 
 public class Notification {

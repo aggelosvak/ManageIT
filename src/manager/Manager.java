@@ -1,4 +1,6 @@
-package user;
+package manager;
+
+import user.User;
 
 public class Manager extends User {
 

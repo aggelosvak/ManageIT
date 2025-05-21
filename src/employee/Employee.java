@@ -1,17 +1,25 @@
-package com.yourproject.model;
+package employee;
 
 public class Employee {
 
     // Attributes
     private String employeeId;       // Unique identifier for the employee
+    private String name;             // Name of the employee
     private int points;              // Points accrued by the employee
     private int leaveBalance;        // Remaining leave balance for the employee
     private String companyId;        // ID of the company the employee belongs to
     private int leaveSum;            // Total number of leaves taken by the employee over time
 
-    // Constructor
-    public Employee(String employeeId, int points, int leaveBalance, String companyId, int leaveSum) {
+    // Constructor with employeeId and name
+    public Employee(String employeeId, String name) {
         this.employeeId = employeeId;
+        this.name = name;
+    }
+
+    // Full Constructor
+    public Employee(String employeeId, String name, int points, int leaveBalance, String companyId, int leaveSum) {
+        this.employeeId = employeeId;
+        this.name = name;
         this.points = points;
         this.leaveBalance = leaveBalance;
         this.companyId = companyId;
@@ -29,6 +37,14 @@ public class Employee {
 
     public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getPoints() {
@@ -68,6 +84,7 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "employeeId='" + employeeId + '\'' +
+                ", name='" + name + '\'' +
                 ", points=" + points +
                 ", leaveBalance=" + leaveBalance +
                 ", companyId='" + companyId + '\'' +
