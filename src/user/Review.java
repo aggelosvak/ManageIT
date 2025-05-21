@@ -1,72 +1,109 @@
 package user;
 
+import java.sql.Timestamp;
+import java.util.Map;
+
 public class Review {
-    private int reviewId;       // Unique Review ID
-    private int workerId;       // ID of the worker being reviewed
-    private int managerId;      // ID of the manager who wrote the review
-    private String description; // Review description
-    private double rating;      // Rating given in the review (e.g., out of 5.0)
 
-    // Constructor
-    public Review(int reviewId, int workerId, int managerId, String description, double rating) {
-        this.reviewId = reviewId;
-        this.workerId = workerId;
-        this.managerId = managerId;
+    // Attributes
+    private String employeeId;           // ID of the employee being reviewed
+    private String reviewerId;           // ID of the reviewer
+    private Timestamp reviewDate;        // Date/time of the review
+    private Map<String, Integer> ratings; // Ratings for specific criteria
+    private String description;          // A description or summary of the review
+
+    // Default Constructor
+    public Review() {
+    }
+
+    // Parameterized Constructor
+    public Review(String employeeId, String reviewerId, Timestamp reviewDate, Map<String, Integer> ratings, String description) {
+        this.employeeId = employeeId;
+        this.reviewerId = reviewerId;
+        this.reviewDate = reviewDate;
+        this.ratings = ratings;
+        this.setDescription(description); // Use setter for validation
+    }
+
+    // Setter for employeeId
+    public void setEmployeeId(String employeeId) {
+        if (employeeId == null || employeeId.trim().isEmpty()) {
+            throw new IllegalArgumentException("Employee ID cannot be null or empty");
+        }
+        this.employeeId = employeeId;
+    }
+
+    // Getter for employeeId
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    // Setter for reviewerId
+    public void setReviewerId(String reviewerId) {
+        if (reviewerId == null || reviewerId.trim().isEmpty()) {
+            throw new IllegalArgumentException("Reviewer ID cannot be null or empty");
+        }
+        this.reviewerId = reviewerId;
+    }
+
+    // Getter for reviewerId
+    public String getReviewerId() {
+        return reviewerId;
+    }
+
+    // Setter for reviewDate
+    public void setReviewDate(Timestamp reviewDate) {
+        if (reviewDate == null) {
+            throw new IllegalArgumentException("Review date cannot be null");
+        }
+        this.reviewDate = reviewDate;
+    }
+
+    // Getter for reviewDate
+    public Timestamp getReviewDate() {
+        return reviewDate;
+    }
+
+    // Setter for ratings
+    public void setRatings(Map<String, Integer> ratings) {
+        if (ratings == null || ratings.isEmpty()) {
+            throw new IllegalArgumentException("Ratings cannot be null or empty");
+        }
+        for (Map.Entry<String, Integer> entry : ratings.entrySet()) {
+            if (entry.getValue() < 1 || entry.getValue() > 5) {
+                throw new IllegalArgumentException("Rating for " + entry.getKey() + " must be between 1 and 5");
+            }
+        }
+        this.ratings = ratings;
+    }
+
+    // Getter for ratings
+    public Map<String, Integer> getRatings() {
+        return ratings;
+    }
+
+    // Setter for description
+    public void setDescription(String description) {
+        if (description == null || description.trim().isEmpty()) {
+            throw new IllegalArgumentException("Description cannot be null or empty");
+        }
         this.description = description;
-        this.rating = rating;
     }
 
-    // Getters and Setters
-    public int getReviewId() {
-        return reviewId;
-    }
-
-    public void setReviewId(int reviewId) {
-        this.reviewId = reviewId;
-    }
-
-    public int getWorkerId() {
-        return workerId;
-    }
-
-    public void setWorkerId(int workerId) {
-        this.workerId = workerId;
-    }
-
-    public int getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(int managerId) {
-        this.managerId = managerId;
-    }
-
+    // Getter for description
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        if (rating >= 0.0 && rating <= 5.0) { // Ensure valid rating range
-            this.rating = rating;
-        } else {
-            System.out.println("Invalid rating. Please provide a rating between 0.0 and 5.0.");
-        }
-    }
-
-    // Method to display review details
-    public void displayReview() {
-        System.out.println("Review ID: " + reviewId);
-        System.out.println("Worker ID: " + workerId);
-        System.out.println("Manager ID: " + managerId);
-        System.out.println("Description: " + description);
-        System.out.println("Rating: " + rating);
+    // Override toString() for debugging/logging purposes
+    @Override
+    public String toString() {
+        return "Review{" +
+                "employeeId='" + employeeId + '\'' +
+                ", reviewerId='" + reviewerId + '\'' +
+                ", reviewDate=" + reviewDate +
+                ", ratings=" + ratings +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
