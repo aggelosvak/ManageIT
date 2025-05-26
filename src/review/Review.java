@@ -1,4 +1,4 @@
-package user;
+package review;
 
 import java.sql.Timestamp;
 import java.util.Map;

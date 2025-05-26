@@ -1,8 +1,8 @@
 package review;
 
-import employee.EmployeeService; // Correctly referring to EmployeeService package
+import employee.EmployeeService; // Correctly referring to the EmployeeService package
 import notification.NotificationService;
-import user.Review;
+import review.Review;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -40,7 +40,7 @@ public class CreateReview {
                 return daysSinceLastReview >= 30; // Ensure 30-day restriction
             }
 
-            return true; // No prior review, so review can proceed
+            return true; // No prior review, so the review can proceed
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error while checking last review date for employeeId: " + employeeId, e);
             return false;
@@ -77,6 +77,7 @@ public class CreateReview {
             saveReview(review);
 
             // Notify the employee about the review submission
+            Review Review;
             notificationService.notifyEmployeeReview(employeeId, review);
 
             return true; // Successfully submitted
