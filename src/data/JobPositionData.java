@@ -1,6 +1,8 @@
 package data;
 
 import model.JobPosition;
+import java.util.Arrays;
+import java.util.List;
 
 public class JobPositionData {
     public static final JobPosition CAFETERIA_SERVER = new JobPosition(
@@ -18,4 +20,8 @@ public class JobPositionData {
             true,
             13.00
     );
+
+    public static List<JobPosition> all() {
+        return Arrays.asList(CAFETERIA_SERVER, CAFETERIA_COOK);
+    }
 }
