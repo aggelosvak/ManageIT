@@ -40,5 +40,12 @@ public class Employee {
         this.salary = salary;
     }
 
-    // Update toString to include salary if you like
+    public String getName() {
+        return name;
+    }
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
 }
