@@ -3,6 +3,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Import the JobListingUploadPage from the JobListingUpload package
+import JobListingUpload.JobListingUploadPage;
+
 public class ManagerLandingPage extends JFrame {
     public ManagerLandingPage() {
         setTitle("Manager Dashboard");
@@ -20,13 +23,24 @@ public class ManagerLandingPage extends JFrame {
         JButton searchEmployeesBtn = new JButton("Αναζήτηση Εργαζομένων");
         searchEmployeesBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JButton jobListingsBtn = new JButton("Αγγελίες");
+        jobListingsBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         JButton logoutBtn = new JButton("Αποσύνδεση");
         logoutBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Action listeners
         searchEmployeesBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO: Show available job positions (start use case flow)
+                // TODO: Implement employee search functionality
+            }
+        });
+
+        jobListingsBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new JobListingUploadPage().setVisible(true);
+                // Optionally hide the landing page:
+                // ManagerLandingPage.this.setVisible(false);
             }
         });
 
@@ -40,7 +54,9 @@ public class ManagerLandingPage extends JFrame {
         panel.add(titleLabel);
         panel.add(Box.createRigidArea(new Dimension(0, 30)));
         panel.add(searchEmployeesBtn);
-        panel.add(Box.createRigidArea(new Dimension(0, 30)));
+        panel.add(Box.createRigidArea(new Dimension(0, 20)));
+        panel.add(jobListingsBtn);
+        panel.add(Box.createRigidArea(new Dimension(0, 20)));
         panel.add(logoutBtn);
 
         setContentPane(panel);

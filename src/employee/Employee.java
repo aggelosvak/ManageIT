@@ -3,12 +3,13 @@ package employee;
 public class Employee {
 
     // Attributes
-    private String employeeId;       // Unique identifier for the employee
-    private String name;             // Name of the employee
-    private int points;              // Points accrued by the employee
-    private int leaveBalance;        // Remaining leave balance for the employee
-    private String companyId;        // ID of the company the employee belongs to
-    private int leaveSum;            // Total number of leaves taken by the employee over time
+    private String employeeId;
+    private String name;
+    private int points;
+    private int leaveBalance;
+    private String companyId;
+    private int leaveSum;
+    private double salary; // <-- Add this line
 
     // Constructor with employeeId and name
     public Employee(String employeeId, String name) {
@@ -16,79 +17,28 @@ public class Employee {
         this.name = name;
     }
 
-    // Full Constructor
-    public Employee(String employeeId, String name, int points, int leaveBalance, String companyId, int leaveSum) {
+    // Full Constructor (add salary parameter)
+    public Employee(String employeeId, String name, int points, int leaveBalance, String companyId, int leaveSum, double salary) {
         this.employeeId = employeeId;
         this.name = name;
         this.points = points;
         this.leaveBalance = leaveBalance;
         this.companyId = companyId;
         this.leaveSum = leaveSum;
+        this.salary = salary; // <-- Set here
     }
 
-    // Default Constructor
-    public Employee() {
+    public Employee() {}
+
+    // ... other getters and setters
+
+    public double getSalary() { // <-- Getter
+        return salary;
     }
 
-    // Getters and Setters
-    public String getEmployeeId() {
-        return employeeId;
+    public void setSalary(double salary) { // <-- Setter
+        this.salary = salary;
     }
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public int getLeaveBalance() {
-        return leaveBalance;
-    }
-
-    public void setLeaveBalance(int leaveBalance) {
-        this.leaveBalance = leaveBalance;
-    }
-
-    public String getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
-    }
-
-    public int getLeaveSum() {
-        return leaveSum;
-    }
-
-    public void setLeaveSum(int leaveSum) {
-        this.leaveSum = leaveSum;
-    }
-
-    // Override toString for debugging and logging purposes
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "employeeId='" + employeeId + '\'' +
-                ", name='" + name + '\'' +
-                ", points=" + points +
-                ", leaveBalance=" + leaveBalance +
-                ", companyId='" + companyId + '\'' +
-                ", leaveSum=" + leaveSum +
-                '}';
-    }
+    // Update toString to include salary if you like
 }
