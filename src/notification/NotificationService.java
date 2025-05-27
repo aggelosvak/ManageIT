@@ -37,7 +37,7 @@ public class NotificationService {
     }
 
     // Simulate sending a notification (this could later involve an email system, notification queue, etc.)
-    private void sendNotification(Notification notification) {
+    public void sendNotification(Notification notification) {
         // Here you might send the notification to a database, an API, or a messaging system.
         // For now, we'll just print it to simulate the sending process.
         notification.displayNotification(); // Print the notification details

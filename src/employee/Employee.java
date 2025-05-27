@@ -48,4 +48,16 @@ public class Employee {
         return employeeId;
     }
 
+    public int getPoints() {
+
+        return points;
+    }
+
+    public void setPoints(int points) {
+        if (points < 0) {
+            throw new IllegalArgumentException("Points cannot be negative.");
+        }
+        this.points = points;
+    }
+
 }
