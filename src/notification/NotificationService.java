@@ -1,6 +1,6 @@
 package notification;
 
-import user.Review;
+import review.Review;
 
 import java.time.LocalDateTime;
 

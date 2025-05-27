@@ -1,7 +1,7 @@
 package model;
 
 public class JobPosition {
-    private int id;
+    public int id;
     private String title;
     private String description;
     private boolean available;
@@ -41,4 +41,7 @@ public class JobPosition {
         double salary = Double.parseDouble(tokens[4]);
         return new JobPosition(id, title, description, available, salary);
     }
+
+
+
 }
