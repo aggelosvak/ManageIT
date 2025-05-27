@@ -16,6 +16,9 @@ public class Report {
         this.userId = userId;
     }
 
+    public Report(String reportId, java.sql.Timestamp timestamp, String reportedEmployeeId, String userId) {
+    }
+
     // Getters and Setters
     public String getReportId() {
         return reportId;
