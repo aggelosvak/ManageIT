@@ -1,6 +1,7 @@
 package employee;
 
 import company.Company;
+import model.JobPosition;
 
 public class Employee {
 
@@ -12,16 +13,18 @@ public class Employee {
     private Company company;
     private int leaveSum;
     private double salary;
+    private JobPosition jobPosition; // New attribute
 
-    // Constructor with employeeId and name
-    public Employee(int employeeId, String name, Company company) {
+    // Constructor with employeeId, name and jobPosition
+    public Employee(int employeeId, String name, Company company, JobPosition jobPosition) {
         this.employeeId = employeeId;
         this.name = name;
         this.company = company;
+        this.jobPosition = jobPosition;
     }
 
-    // Full Constructor
-    public Employee(int employeeId, String name, int points, int leaveBalance, Company company, int leaveSum, double salary) {
+    // Full Constructor with jobPosition
+    public Employee(int employeeId, String name, int points, int leaveBalance, Company company, int leaveSum, double salary, JobPosition jobPosition) {
         this.employeeId = employeeId;
         this.name = name;
         this.points = points;
@@ -29,6 +32,12 @@ public class Employee {
         this.company = company;
         this.leaveSum = leaveSum;
         this.salary = salary;
+        this.jobPosition = jobPosition;
+    }
+
+    // Constructor without jobPosition (for backward compatibility)
+    public Employee(int employeeId, String name, int points, int leaveBalance, Company company, int leaveSum, double salary) {
+        this(employeeId, name, points, leaveBalance, company, leaveSum, salary, null);
     }
 
     public Employee() {}
@@ -67,5 +76,13 @@ public class Employee {
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+    public JobPosition getJobPosition() {
+        return jobPosition;
+    }
+
+    public void setJobPosition(JobPosition jobPosition) {
+        this.jobPosition = jobPosition;
     }
 }

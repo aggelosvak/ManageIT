@@ -71,14 +71,17 @@ public class RewardSystemUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        Employee mockEmployee = new Employee(1, "John Doe", null);
+        Employee mockEmployee = new Employee(1, "John Doe", null, null); // Company & JobPosition are null
         NotificationService mockNotificationService = new NotificationService();
-        RewardService mockRewardService = new RewardService(RewardData.all(), CouponData.all(), mockNotificationService);
+        RewardService mockRewardService = new RewardService(
+                RewardData.all(),
+                CouponData.all(),
+                mockNotificationService
+        );
 
         SwingUtilities.invokeLater(() -> {
             RewardSystemUI frame = new RewardSystemUI(mockRewardService, mockEmployee);
             frame.setVisible(true);
         });
     }
-
 }

@@ -104,7 +104,8 @@ public class CreateSchedule extends JFrame {
         listPanel.add(new JLabel("Επιλέξτε εργαζόμενους:"));
         List<JCheckBox> checkBoxes = new ArrayList<>();
         for (Employee emp : employees) {
-            JCheckBox cb = new JCheckBox(emp.getName());
+            String jobPositionText = (emp.getJobPosition() != null) ? emp.getJobPosition().getTitle() : "Χωρίς θέση";
+            JCheckBox cb = new JCheckBox(emp.getName() + " (" + jobPositionText + ")");
             checkBoxes.add(cb);
             listPanel.add(cb);
         }
@@ -119,21 +120,23 @@ public class CreateSchedule extends JFrame {
                     selectedEmployees.add(employees.get(i));
                 }
             }
-            // You can implement schedule creation logic here using: selectedDate, currentCompany, selectedEmployees
             JOptionPane.showMessageDialog(this,
                     "Επιλέξατε: " + selectedDate + "\nΕργαζόμενοι: " +
                             (selectedEmployees.isEmpty() ? "Κανένας" :
-                                    String.join(", ", selectedEmployees.stream().map(Employee::getName).toArray(String[]::new)))
-            );
-        });
-        JPanel southPanel = new JPanel();
-        southPanel.add(confirmButton);
+                                    String.join(", ", selectedEmployees.stream().map(e -> {
+                                        String pos = (e.getJobPosition() != null) ? e.getJobPosition().getTitle() : "Χωρίς θέση";
+                                        return e.getName() + " (" + pos + ")";
+                                    }).toArray(String[]::new)))
+        );
+    });
+    JPanel southPanel = new JPanel();
+    southPanel.add(confirmButton);
 
-        workerPanel.add(southPanel, BorderLayout.SOUTH);
+    workerPanel.add(southPanel, BorderLayout.SOUTH);
 
-        mainPanel.add(workerPanel, "WORKER_SELECTION");
-        ((CardLayout) mainPanel.getLayout()).show(mainPanel, "WORKER_SELECTION");
-        revalidate();
-        repaint();
-    }
+    mainPanel.add(workerPanel, "WORKER_SELECTION");
+    ((CardLayout) mainPanel.getLayout()).show(mainPanel, "WORKER_SELECTION");
+    revalidate();
+    repaint();
+}
 }
