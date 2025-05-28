@@ -2,15 +2,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import JobListingUpload.JobListingUploadPage;
-// Import your CreateSchedule window
 import CreateSchedule.CreateSchedule;
+import company.Company;
+import data.CompanyData;
 
 public class ManagerLandingPage extends JFrame {
-    public ManagerLandingPage() {
+    private Company currentCompany;
+
+    public ManagerLandingPage(Company company) {
+        this.currentCompany = company;
+
         setTitle("Manager Dashboard");
-        setSize(400, 300); // Slightly taller for more buttons
+        setSize(400, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -43,16 +49,12 @@ public class ManagerLandingPage extends JFrame {
         jobListingsBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new JobListingUploadPage().setVisible(true);
-                // Optionally hide the landing page:
-                // ManagerLandingPage.this.setVisible(false);
             }
         });
 
         createScheduleBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new CreateSchedule().setVisible(true);
-                // Optionally hide the landing page:
-                // ManagerLandingPage.this.setVisible(false);
+                new CreateSchedule(currentCompany).setVisible(true);
             }
         });
 
@@ -77,6 +79,10 @@ public class ManagerLandingPage extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new ManagerLandingPage().setVisible(true));
+        // Fetch all companies using the correct CompanyData method.
+        List<Company> companies = CompanyData.getCompanies();
+        Company company = companies.isEmpty() ? null : companies.get(0);
+
+        SwingUtilities.invokeLater(() -> new ManagerLandingPage(company).setVisible(true));
     }
 }
