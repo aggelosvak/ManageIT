@@ -3,13 +3,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// Import the JobListingUploadPage from the JobListingUpload package
 import JobListingUpload.JobListingUploadPage;
+// Import your CreateSchedule window
+import CreateSchedule.CreateSchedule;
 
 public class ManagerLandingPage extends JFrame {
     public ManagerLandingPage() {
         setTitle("Manager Dashboard");
-        setSize(400, 200);
+        setSize(400, 300); // Slightly taller for more buttons
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -25,6 +26,9 @@ public class ManagerLandingPage extends JFrame {
 
         JButton jobListingsBtn = new JButton("Αγγελίες");
         jobListingsBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JButton createScheduleBtn = new JButton("Δημιουργία Προγράμματος");
+        createScheduleBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton logoutBtn = new JButton("Αποσύνδεση");
         logoutBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -44,6 +48,14 @@ public class ManagerLandingPage extends JFrame {
             }
         });
 
+        createScheduleBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new CreateSchedule().setVisible(true);
+                // Optionally hide the landing page:
+                // ManagerLandingPage.this.setVisible(false);
+            }
+        });
+
         logoutBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // TODO: Handle logout and return to login page
@@ -56,6 +68,8 @@ public class ManagerLandingPage extends JFrame {
         panel.add(searchEmployeesBtn);
         panel.add(Box.createRigidArea(new Dimension(0, 20)));
         panel.add(jobListingsBtn);
+        panel.add(Box.createRigidArea(new Dimension(0, 20)));
+        panel.add(createScheduleBtn);
         panel.add(Box.createRigidArea(new Dimension(0, 20)));
         panel.add(logoutBtn);
 

@@ -1,5 +1,7 @@
 package employee;
 
+import company.Company;
+
 public class Employee {
 
     // Attributes
@@ -7,36 +9,45 @@ public class Employee {
     private String name;
     private int points;
     private int leaveBalance;
-    private String companyId;
+    private Company company;      // Use Company object instead of int companyId
     private int leaveSum;
-    private double salary; // <-- Add this line
+    private double salary;
 
     // Constructor with employeeId and name
-    public Employee(String employeeId, String name) {
+    public Employee(String employeeId, String name, Company company) {
         this.employeeId = employeeId;
         this.name = name;
+        this.company = company;
     }
 
-    // Full Constructor (add salary parameter)
-    public Employee(String employeeId, String name, int points, int leaveBalance, String companyId, int leaveSum, double salary) {
+    // Full Constructor (add Company parameter)
+    public Employee(String employeeId, String name, int points, int leaveBalance, Company company, int leaveSum, double salary) {
         this.employeeId = employeeId;
         this.name = name;
         this.points = points;
         this.leaveBalance = leaveBalance;
-        this.companyId = companyId;
+        this.company = company;
         this.leaveSum = leaveSum;
-        this.salary = salary; // <-- Set here
+        this.salary = salary;
     }
 
     public Employee() {}
 
     // ... other getters and setters
 
-    public double getSalary() { // <-- Getter
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public double getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) { // <-- Setter
+    public void setSalary(double salary) {
         this.salary = salary;
     }
 
@@ -49,7 +60,6 @@ public class Employee {
     }
 
     public int getPoints() {
-
         return points;
     }
 
@@ -59,5 +69,4 @@ public class Employee {
         }
         this.points = points;
     }
-
 }

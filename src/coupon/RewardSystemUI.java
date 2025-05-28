@@ -99,28 +99,29 @@ public class RewardSystemUI extends JFrame {
             }
         }
     }
-
-    public static void main(String[] args) {
-        // Mock data
-        Employee employee = new Employee("1", "Jane Doe", 1200, 0, "ABC", 0, 50000);
-
-        // Rewards and Coupons
-        List<Reward> rewards = List.of(
-                new Reward(1, "Gift Card", "A prepaid gift card you can use anywhere.", 800),
-                new Reward(2, "Extra Leave Day", "Get an additional day of paid leave.", 1000)
-        );
-
-
-        List<Coupon> coupons = List.of(
-                new Coupon(1, "LUNCH50", "50% off on lunch", 500),
-                new Coupon(2, "MOVIE20", "20% off on movie tickets", 700)
-        );
-
-// Instantiate RewardService with the lists
-        RewardService rewardService = new RewardService(rewards, coupons, new NotificationService());
-
-// Launch the User Interface
-        SwingUtilities.invokeLater(() -> new RewardSystemUI(rewardService, employee).setVisible(true));
-
     }
-}
+
+//    public static void main(String[] args) {
+//        // Mock data
+//        Employee employee = new Employee("1", "Jane Doe", 1200, 0, "1", 0, 50000);
+//
+//        // Rewards and Coupons
+//        List<Reward> rewards = List.of(
+//                new Reward(1, "Gift Card", "A prepaid gift card you can use anywhere.", 800),
+//                new Reward(2, "Extra Leave Day", "Get an additional day of paid leave.", 1000)
+//        );
+//
+//
+//        List<Coupon> coupons = List.of(
+//                new Coupon(1, "LUNCH50", "50% off on lunch", 500),
+//                new Coupon(2, "MOVIE20", "20% off on movie tickets", 700)
+//        );
+//
+//// Instantiate RewardService with the lists
+//        RewardService rewardService = new RewardService(rewards, coupons, new NotificationService());
+//
+//// Launch the User Interface
+//        SwingUtilities.invokeLater(() -> new RewardSystemUI(rewardService, employee).setVisible(true));
+//
+//    }
+//}
