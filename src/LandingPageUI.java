@@ -350,9 +350,7 @@ public class LandingPageUI {
         EmployeeService mockEmployeeService = new EmployeeService();
         NotificationService mockNotificationService = new NotificationService();
         WorkHoursTrackingService mockWorkHoursService = new WorkHoursTrackingService(mockEmployeeService, mockNotificationService);
-
-        Employee mockEmployee = new Employee(1, "John Doe", null);
-
+        Employee mockEmployee = new Employee(1, "John Doe", null, null);
         RewardService rewardService = new RewardService(RewardData.all(), CouponData.all(), mockNotificationService);
 
         SwingUtilities.invokeLater(() -> new LandingPageUI(rewardService, mockEmployee, mockWorkHoursService, mockEmployeeService, mockNotificationService));
