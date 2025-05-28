@@ -47,4 +47,15 @@ public class NotificationService {
     private int generateNotificationId() {
         return (int) (Math.random() * 100000); // Example random ID generator
     }
+
+    public void notifyManager(int employeeId, String notificationTitle, String notificationMessage) {
+        // Example logic for sending a notification to the manager
+        System.out.println("Notification sent to manager:");
+        System.out.println("Employee ID: " + employeeId);
+        System.out.println("Title: " + notificationTitle);
+        System.out.println("Message: " + notificationMessage);
+
+        // Logic to send the notification (e.g., email, system alert, etc.)
+    }
 }
+

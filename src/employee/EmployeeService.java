@@ -12,9 +12,9 @@ public class EmployeeService {
 
         // Assign companies to employees as needed
         return List.of(
-                new Employee("E001", "John Doe", companies.get(0)),
-                new Employee("E002", "Jane Smith", companies.get(1)),
-                new Employee("E003", "Emily Davis", companies.get(2))
+                new Employee(1, "John Doe", companies.get(0)),
+                new Employee(2, "Jane Smith", companies.get(1)),
+                new Employee(3, "Emily Davis", companies.get(2))
         );
     }
 }

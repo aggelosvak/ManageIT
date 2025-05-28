@@ -5,23 +5,23 @@ import company.Company;
 public class Employee {
 
     // Attributes
-    private String employeeId;
+    private int employeeId;
     private String name;
     private int points;
     private int leaveBalance;
-    private Company company;      // Use Company object instead of int companyId
+    private Company company;
     private int leaveSum;
     private double salary;
 
     // Constructor with employeeId and name
-    public Employee(String employeeId, String name, Company company) {
+    public Employee(int employeeId, String name, Company company) {
         this.employeeId = employeeId;
         this.name = name;
         this.company = company;
     }
 
-    // Full Constructor (add Company parameter)
-    public Employee(String employeeId, String name, int points, int leaveBalance, Company company, int leaveSum, double salary) {
+    // Full Constructor
+    public Employee(int employeeId, String name, int points, int leaveBalance, Company company, int leaveSum, double salary) {
         this.employeeId = employeeId;
         this.name = name;
         this.points = points;
@@ -33,7 +33,25 @@ public class Employee {
 
     public Employee() {}
 
-    // ... other getters and setters
+    // Getters and Setters
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        if (points < 0) {
+            throw new IllegalArgumentException("Points cannot be negative.");
+        }
+        this.points = points;
+    }
 
     public Company getCompany() {
         return company;
@@ -49,24 +67,5 @@ public class Employee {
 
     public void setSalary(double salary) {
         this.salary = salary;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmployeeId() {
-        return employeeId;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        if (points < 0) {
-            throw new IllegalArgumentException("Points cannot be negative.");
-        }
-        this.points = points;
     }
 }

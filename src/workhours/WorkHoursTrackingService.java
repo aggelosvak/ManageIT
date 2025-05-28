@@ -14,8 +14,8 @@ public class WorkHoursTrackingService {
 
     private final EmployeeService employeeService;
     private final NotificationService notificationService;
-    private final Map<String, Timestamp> arrivalTimestamps = new HashMap<>();
-    private final Map<String, Duration> breakDurations = new HashMap<>();
+    private final Map<Integer, Timestamp> arrivalTimestamps = new HashMap<>();
+    private final Map<Integer, Duration> breakDurations = new HashMap<>();
 
     public WorkHoursTrackingService(EmployeeService employeeService, NotificationService notificationService) {
         this.employeeService = employeeService;
@@ -23,7 +23,7 @@ public class WorkHoursTrackingService {
     }
 
     // 1. Record Arrival Time
-    public void recordArrival(String employeeId) {
+    public void recordArrival(int employeeId) {
         Employee employee = findEmployeeById(employeeId);
         if (employee == null) {
             throw new IllegalArgumentException("Employee not found");
@@ -39,7 +39,7 @@ public class WorkHoursTrackingService {
     }
 
     // 2. Start Break Timer
-    public void startBreak(String employeeId) {
+    public void startBreak(int employeeId) {
         Employee employee = findEmployeeById(employeeId);
         if (employee == null) {
             throw new IllegalArgumentException("Employee not found");
@@ -58,18 +58,18 @@ public class WorkHoursTrackingService {
     }
 
     // 3. Resume Work (Save Remaining Break Time)
-    public void resumeWork(String employeeId) {
+    public void resumeWork(int employeeId) {
         Duration remainingBreakTime = breakDurations.getOrDefault(employeeId, Duration.ZERO);
 
         if (!remainingBreakTime.isZero()) {
             System.out.println("Remaining break time (" + remainingBreakTime + ") saved for employee: " + employeeId);
         }
 
-        breakDurations.put(employeeId, remainingBreakTime); // Store it in the database
+        breakDurations.put(employeeId, remainingBreakTime);
     }
 
     // 4. Record Exit Time
-    public void recordExit(String employeeId) {
+    public void recordExit(int employeeId) {
         Employee employee = findEmployeeById(employeeId);
         if (employee == null) {
             throw new IllegalArgumentException("Employee not found");
@@ -92,21 +92,22 @@ public class WorkHoursTrackingService {
     }
 
     // Utility methods
-    private Employee findEmployeeById(String employeeId) {
+    private Employee findEmployeeById(int employeeId) {
         return employeeService.getAvailableEmployees().stream()
-                .filter(e -> e.getEmployeeId().equals(employeeId))
+                .filter(e -> e.getEmployeeId() == employeeId)
                 .findFirst()
                 .orElse(null);
     }
 
-    private Duration getRemainingBreakTime(String employeeId) {
+    private Duration getRemainingBreakTime(int employeeId) {
         // Mock logic: Suppose every employee has 1 hour of break time
         Duration totalBreakTime = Duration.ofMinutes(60);
         Duration usedBreakTime = breakDurations.getOrDefault(employeeId, Duration.ZERO);
         return totalBreakTime.minus(usedBreakTime);
     }
 
-    private void notifyManager(String employeeId, String notificationTitle, String notificationMessage) {
-        notificationService.notifyEmployeeReview(employeeId, null); // Call manager notification logic
+    private void notifyManager(int employeeId, String notificationTitle, String notificationMessage) {
+        notificationService.notifyManager(employeeId, notificationTitle, notificationMessage);
     }
+
 }

@@ -12,10 +12,10 @@ public class EmployeeData {
 
     // Example static list of employees
     private static final List<Employee> employees = Arrays.asList(
-            new Employee("E001", "John Doe", 120, 15, companies.get(0), 20, 54000.0),
-            new Employee("E002", "Jane Smith", 90, 10, companies.get(1), 18, 47000.0),
-            new Employee("E003", "Emily Davis", 150, 20, companies.get(0), 25, 60000.0),
-            new Employee("E004", "Mike Brown", 80, 8, companies.get(2), 12, 45000.0)
+            new Employee(1, "John Doe", 120, 15, companies.get(0), 20, 54000.0),
+            new Employee(2, "Jane Smith", 90, 10, companies.get(1), 18, 47000.0),
+            new Employee(3, "Emily Davis", 150, 20, companies.get(0), 25, 60000.0),
+            new Employee(4, "Mike Brown", 80, 8, companies.get(2), 12, 45000.0)
     );
 
     // Get all employees
@@ -24,10 +24,11 @@ public class EmployeeData {
     }
 
     // Find an employee by ID
-    public static Employee getEmployeeById(String employeeId) {
+    public static Employee getEmployeeById(int employeeId) {
         return employees.stream()
-                .filter(e -> e.getEmployeeId().equals(employeeId))
+                .filter(e -> e.getEmployeeId() == employeeId)
                 .findFirst()
                 .orElse(null);
     }
+
 }

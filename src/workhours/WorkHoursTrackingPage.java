@@ -11,9 +11,9 @@ import java.awt.event.ActionListener;
 public class WorkHoursTrackingPage extends JFrame {
 
     private final WorkHoursTrackingService workHoursTrackingService;
-    private final String employeeId; // Current logged-in employee ID (replace with actual login logic)
+    private final int employeeId; // Current logged-in employee ID (replace with actual login logic)
 
-    public WorkHoursTrackingPage(EmployeeService employeeService, NotificationService notificationService, String employeeId) {
+    public WorkHoursTrackingPage(EmployeeService employeeService, NotificationService notificationService, int employeeId) {
         this.workHoursTrackingService = new WorkHoursTrackingService(employeeService, notificationService);
         this.employeeId = employeeId;
 
@@ -138,7 +138,7 @@ public class WorkHoursTrackingPage extends JFrame {
         SwingUtilities.invokeLater(() -> {
             EmployeeService employeeService = new EmployeeService(); // Mock EmployeeService
             NotificationService notificationService = new NotificationService(); // Mock NotificationService
-            String employeeId = "E001"; // Hardcoded logged-in employee ID for testing
+            int employeeId = 1; // Hardcoded logged-in employee ID for testing
             new WorkHoursTrackingPage(employeeService, notificationService, employeeId).setVisible(true);
         });
     }

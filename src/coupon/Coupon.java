@@ -31,6 +31,6 @@ public class Coupon {
 
     @Override
     public String toString() {
-        return "[" + code + "] " + description + " (Points: " + requiredPoints + ")";
+        return description + " (Code: " + code + ", Points: " + requiredPoints + ")";
     }
 }
