@@ -55,7 +55,9 @@ public class NotificationService {
         System.out.println("Title: " + notificationTitle);
         System.out.println("Message: " + notificationMessage);
 
-        // Logic to send the notification (e.g., email, system alert, etc.)
+    }
+
+    public void notify(String newEmployeeReport, String s) {
     }
 }
 

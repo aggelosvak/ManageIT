@@ -1,15 +1,19 @@
 package employee;
 
+import data.EmployeeData;
 import employee.Employee;
 import company.Company;
 import model.JobPosition;
 import data.CompanyData;
 import data.JobPositionData;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeService {
     public List<Employee> getAvailableEmployees() {
+        // Fetch the companies list (does not create new companies)
         List<Company> companies = CompanyData.getCompanies();
         List<JobPosition> jobPositions = JobPositionData.all();
 
@@ -20,4 +24,11 @@ public class EmployeeService {
                 new Employee(3, "Emily Davis", companies.get(2), jobPositions.get(1))
         );
     }
+
+    public List<Employee> getAllEmployees() {
+        // Fetch all employees directly from EmployeeData
+        return EmployeeData.getEmployees();
+    }
+
+
 }
