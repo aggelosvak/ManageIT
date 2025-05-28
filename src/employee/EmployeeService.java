@@ -1,8 +1,11 @@
 package employee;
 
+import data.EmployeeData;
 import employee.Employee;
 import company.Company;
 import data.CompanyData;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeService {
@@ -17,4 +20,11 @@ public class EmployeeService {
                 new Employee(3, "Emily Davis", companies.get(2))
         );
     }
+
+    public List<Employee> getAllEmployees() {
+        // Fetch all employees directly from EmployeeData
+        return EmployeeData.getEmployees();
+    }
+
+
 }
