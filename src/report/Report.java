@@ -1,6 +1,8 @@
 package report;
 
 import java.security.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Report {
     private String reportId;            // Unique identifier for the report
@@ -62,4 +64,16 @@ public class Report {
                 ", userId='" + userId + '\'' +
                 '}';
     }
+    public class ReportRepository {
+        private static final List<Report> reports = new ArrayList<>();
+
+        public static void saveReport(Report report) {
+            reports.add(report);
+        }
+
+        public static List<Report> getAllReports() {
+            return reports;
+        }
+    }
+
 }

@@ -35,18 +35,15 @@ public class NotificationService {
                 "\nDate: " + review.getReviewDate() +
                 "\nRatings: " + review.getRatings();
     }
-
-    // Simulate sending a notification (this could later involve an email system, notification queue, etc.)
     public void sendNotification(Notification notification) {
-        // Here you might send the notification to a database, an API, or a messaging system.
-        // For now, we'll just print it to simulate the sending process.
-        notification.displayNotification(); // Print the notification details
+        // Implementation for sending notifications, e.g., save to database, log, or display.
+        notification.displayNotification(); // Simple print simulation
     }
 
-    // Generate a unique Notification ID (for simplicity, just using a random number in this example)
     private int generateNotificationId() {
-        return (int) (Math.random() * 100000); // Example random ID generator
+        return (int) (Math.random() * 100000);
     }
+
 
     public void notifyManager(int employeeId, String notificationTitle, String notificationMessage) {
         // Example logic for sending a notification to the manager
@@ -57,7 +54,11 @@ public class NotificationService {
 
     }
 
-    public void notify(String newEmployeeReport, String s) {
+    public void notify(String title, String message) {
+        System.out.println("Notification Title: " + title);
+        System.out.println("Message: " + message);
     }
+
+
 }
 

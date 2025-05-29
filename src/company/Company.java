@@ -1,5 +1,7 @@
 package company;
 
+import employee.Employee;
+
 public class Company {
     private int id;
     private String name;
@@ -87,4 +89,9 @@ public class Company {
         System.out.println("Schedule ID: " + scheduleId);
         System.out.println("Post ID: " + postId);
     }
+    // Updated getCompanyId method
+    public int getCompanyId() {
+        return this.id;
+    }
+
 }

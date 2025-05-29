@@ -14,8 +14,10 @@ public class WorkHoursTrackingService {
 
     private final EmployeeService employeeService;
     private final NotificationService notificationService;
+
     private final Map<Integer, Timestamp> arrivalTimestamps = new HashMap<>();
     private final Map<Integer, Duration> breakDurations = new HashMap<>();
+    private final Map<Integer, Timestamp> activeBreakStartTimes = new HashMap<>();
 
     public WorkHoursTrackingService(EmployeeService employeeService, NotificationService notificationService) {
         this.employeeService = employeeService;
@@ -26,88 +28,75 @@ public class WorkHoursTrackingService {
     public void recordArrival(int employeeId) {
         Employee employee = findEmployeeById(employeeId);
         if (employee == null) {
-            throw new IllegalArgumentException("Employee not found");
+            System.out.println("Employee not found!");
+            return;
         }
 
-        Timestamp currentTime = Timestamp.valueOf(LocalDateTime.now());
-        arrivalTimestamps.put(employeeId, currentTime);
-
-        // Notify the manager about the employee's arrival
-        String notificationContent = "The employee " + employee.getName() + " has arrived at " + currentTime;
-        notifyManager(employee.getEmployeeId(), "Employee Arrival Notification", notificationContent);
-        System.out.println("Arrival recorded for employee: " + employeeId);
+        arrivalTimestamps.put(employeeId, Timestamp.valueOf(LocalDateTime.now()));
+        System.out.println("Arrival time recorded for Employee ID: " + employeeId);
     }
 
     // 2. Start Break Timer
     public void startBreak(int employeeId) {
         Employee employee = findEmployeeById(employeeId);
-        if (employee == null) {
-            throw new IllegalArgumentException("Employee not found");
+        if (employee == null || activeBreakStartTimes.containsKey(employeeId)) {
+            System.out.println("Employee not found or already on a break!");
+            return;
         }
 
-        // Check remaining break time
-        Duration remainingBreakTime = getRemainingBreakTime(employeeId);
-
-        if (remainingBreakTime.isNegative() || remainingBreakTime.isZero()) {
-            System.out.println("No remaining break time for employee: " + employeeId);
-            throw new IllegalStateException("No remaining break time available.");
-        }
-
-        System.out.println("Break started for " + employee.getName() + ". Remaining time: " + remainingBreakTime);
-        breakDurations.put(employeeId, remainingBreakTime);
+        activeBreakStartTimes.put(employeeId, Timestamp.valueOf(LocalDateTime.now()));
+        System.out.println("Break started for Employee ID: " + employeeId);
     }
 
-    // 3. Resume Work (Save Remaining Break Time)
+    // 3. Resume Work (Save Break Time)
     public void resumeWork(int employeeId) {
-        Duration remainingBreakTime = breakDurations.getOrDefault(employeeId, Duration.ZERO);
-
-        if (!remainingBreakTime.isZero()) {
-            System.out.println("Remaining break time (" + remainingBreakTime + ") saved for employee: " + employeeId);
+        Employee employee = findEmployeeById(employeeId);
+        if (employee == null || !activeBreakStartTimes.containsKey(employeeId)) {
+            System.out.println("Employee not found or not on a break!");
+            return;
         }
 
-        breakDurations.put(employeeId, remainingBreakTime);
+        // Calculate break duration
+        Timestamp breakStartTime = activeBreakStartTimes.get(employeeId);
+        Duration breakDuration = Duration.between(breakStartTime.toLocalDateTime(), LocalDateTime.now());
+
+        // Add to existing break duration if any
+        breakDurations.put(employeeId, breakDurations.getOrDefault(employeeId, Duration.ZERO).plus(breakDuration));
+
+        // Remove active break entry after resuming
+        activeBreakStartTimes.remove(employeeId);
+
+        System.out.println("Break stopped and work resumed for Employee ID: " + employeeId);
     }
 
     // 4. Record Exit Time
     public void recordExit(int employeeId) {
         Employee employee = findEmployeeById(employeeId);
-        if (employee == null) {
-            throw new IllegalArgumentException("Employee not found");
+        if (employee == null || !arrivalTimestamps.containsKey(employeeId)) {
+            System.out.println("Employee not found or did not record arrival!");
+            return;
         }
 
         Timestamp arrivalTime = arrivalTimestamps.get(employeeId);
-        if (arrivalTime == null) {
-            throw new IllegalStateException("Arrival time not found for " + employeeId);
-        }
+        Duration workDuration = Duration.between(arrivalTime.toLocalDateTime(), LocalDateTime.now());
 
-        Duration workedHours = Duration.between(arrivalTime.toLocalDateTime(), LocalDateTime.now())
-                .minus(breakDurations.getOrDefault(employeeId, Duration.ZERO));
+        // Subtract break durations from work hours
+        Duration breaks = breakDurations.getOrDefault(employeeId, Duration.ZERO);
+        workDuration = workDuration.minus(breaks);
 
-        System.out.println("Exit time recorded for " + employee.getName() + ".");
-        System.out.println("Total Worked Hours (excluding breaks): " + workedHours);
+        System.out.println("Workday complete for Employee Name: " + employee.getName());
+        System.out.println("Work Duration: " + workDuration.toHours() + " hours");
+        System.out.println("Break Duration: " + breaks.toMinutes() + " minutes");
 
-        // Notify Manager
-        String notificationContent = "Worked Hours Report: Employee " + employee.getName() + " worked for " + workedHours.toHours() + " hours today.";
-        notifyManager(employee.getEmployeeId(), "Worked Hours Notification", notificationContent);
+        arrivalTimestamps.remove(employeeId);
+        breakDurations.remove(employeeId);
     }
 
     // Utility methods
     private Employee findEmployeeById(int employeeId) {
-        return employeeService.getAvailableEmployees().stream()
+        return employeeService.getAllEmployees().stream()
                 .filter(e -> e.getEmployeeId() == employeeId)
                 .findFirst()
                 .orElse(null);
     }
-
-    private Duration getRemainingBreakTime(int employeeId) {
-        // Mock logic: Suppose every employee has 1 hour of break time
-        Duration totalBreakTime = Duration.ofMinutes(60);
-        Duration usedBreakTime = breakDurations.getOrDefault(employeeId, Duration.ZERO);
-        return totalBreakTime.minus(usedBreakTime);
-    }
-
-    private void notifyManager(int employeeId, String notificationTitle, String notificationMessage) {
-        notificationService.notifyManager(employeeId, notificationTitle, notificationMessage);
-    }
-
 }

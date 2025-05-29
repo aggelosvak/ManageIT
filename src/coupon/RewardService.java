@@ -34,52 +34,23 @@ public class RewardService {
         return employee.getPoints() >= coupon.getRequiredPoints();
     }
 
-    // Redeem a coupon
     public boolean redeemCoupon(Employee employee, Coupon coupon) {
-        if (canRedeemCoupon(employee, coupon)) {
-            // Deduct the required points from the employee's points
+        if (employee.getPoints() >= coupon.getRequiredPoints()) {
             employee.setPoints(employee.getPoints() - coupon.getRequiredPoints());
-
-            // Create a success message
-            String message = "You have successfully redeemed the coupon: " + coupon.getDescription() +
-                    " (Code: " + coupon.getCode() + ").";
-
-            // Notify the employee
-            Notification notification = new Notification(
-                    (int) (Math.random() * 1000),  // Generate a random ID
-                    java.time.LocalDateTime.now(),
-                    employee.getEmployeeId(),      // Use int directly
-                    "Coupon Redeemed",
-                    message,
-                    "INFO",
-                    "High"
-            );
-            notificationService.sendNotification(notification);
-
+            notificationService.notify("Coupon Redeemed", "You redeemed: " + coupon.getDescription());
             return true;
         }
         return false;
     }
 
-    // Redeem a reward
+
     public boolean redeemReward(Employee employee, Reward reward) {
         if (employee.getPoints() >= reward.getRequiredPoints()) {
-
             employee.setPoints(employee.getPoints() - reward.getRequiredPoints());
-
-
-            Notification notification = new Notification(
-                    (int) (Math.random() * 1000),
-                    java.time.LocalDateTime.now(),
-                    employee.getEmployeeId(),
-                    "Reward Redeemed",
-                    "You have successfully redeemed the reward: " + reward.getName(),
-                    "INFO",
-                    "High"
-            );
-            notificationService.sendNotification(notification);
+            notificationService.notify("Reward Redeemed", "You redeemed: " + reward.getName());
             return true;
         }
         return false;
     }
+
 }

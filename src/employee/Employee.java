@@ -62,8 +62,15 @@ public class Employee {
         this.points = points;
     }
 
+    public int getCompanyId() {
+        if (this.company != null) {
+            return this.company.getCompanyId(); // Company ID is retrieved correctly
+        }
+        throw new IllegalStateException("Employee is not associated with any company.");
+    }
+
     public Company getCompany() {
-        return company;
+        return this.company;
     }
 
     public void setCompany(Company company) {
