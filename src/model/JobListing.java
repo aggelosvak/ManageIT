@@ -8,13 +8,20 @@ public class JobListing {
     private LocalDate postingDate;
     private boolean isOpen;
     private String notes;
+    private int managerId; // <-- New attribute
 
-    public JobListing(int id, JobPosition jobPosition, LocalDate postingDate, boolean isOpen, String notes) {
+    public JobListing(int id, JobPosition jobPosition, LocalDate postingDate, boolean isOpen, String notes, int managerId) {
         this.id = id;
         this.jobPosition = jobPosition;
         this.postingDate = postingDate;
         this.isOpen = isOpen;
         this.notes = notes;
+        this.managerId = managerId;
+    }
+
+    // For backward compatibility, keep the old constructor
+    public JobListing(int id, JobPosition jobPosition, LocalDate postingDate, boolean isOpen, String notes) {
+        this(id, jobPosition, postingDate, isOpen, notes, -1);
     }
 
     public int getId() {
@@ -45,9 +52,17 @@ public class JobListing {
         this.notes = notes;
     }
 
+    public int getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(int managerId) {
+        this.managerId = managerId;
+    }
+
     @Override
     public String toString() {
-        return String.format("%s (ID: %d, Open: %s, Date: %s)",
-                jobPosition.getTitle(), id, isOpen ? "Ναι" : "Όχι", postingDate);
+        return String.format("%s (ID: %d, Open: %s, Date: %s, Manager ID: %d)",
+                jobPosition.getTitle(), id, isOpen ? "Ναι" : "Όχι", postingDate, managerId);
     }
 }

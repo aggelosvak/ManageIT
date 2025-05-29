@@ -6,6 +6,7 @@ import employee.EmployeeService;
 import notification.NotificationService;
 import report.Report;
 import workhours.WorkHoursTrackingService;
+import JobApply.JobListingsPage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -82,6 +83,10 @@ public class LandingPageUI {
         String[] menuOptions = {"Profile", "Log Out", "Rewards", "Work Hours", "Reports"};
         JComboBox<String> dropdownMenu = new JComboBox<>(menuOptions);
         dropdownMenu.addActionListener(e -> handleDropdownSelection((String) dropdownMenu.getSelectedItem()));
+
+        JButton listingsButton = new JButton("Listings");
+        listingsButton.addActionListener(e -> displayListingsPage());
+        topPanel.add(listingsButton);
 
         // Add components to the navigation panel
         navigationPanel.add(notificationsButton);
@@ -345,6 +350,13 @@ public class LandingPageUI {
         }
     }
 
+    private void displayListingsPage() {
+        contentPanel.removeAll();
+        JobListingsPage listingsPage = new JobListingsPage(); // Or ListingsPage listingsPage = new ListingsPage();
+        contentPanel.add(listingsPage);
+        contentPanel.revalidate();
+        contentPanel.repaint();
+    }
 
     public static void main(String[] args) {
         EmployeeService mockEmployeeService = new EmployeeService();
