@@ -46,12 +46,10 @@ public class NotificationService {
 
 
     public void notifyManager(int employeeId, String notificationTitle, String notificationMessage) {
-        // Example logic for sending a notification to the manager
         System.out.println("Notification sent to manager:");
         System.out.println("Employee ID: " + employeeId);
         System.out.println("Title: " + notificationTitle);
         System.out.println("Message: " + notificationMessage);
-
     }
 
     public void notify(String title, String message) {

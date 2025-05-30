@@ -6,17 +6,14 @@ import data.RewardData;
 import employee.Employee;
 import employee.EmployeeService;
 import notification.NotificationService;
-import pages.ReportsOptionsPage;
-import pages.RewardsPage;
-import pages.WorkHoursPage;
+import pages.*;
 import review.CreateReview;
-import pages.ReviewPage;
 import workhours.WorkHoursTrackingService;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
-// Main Landing Page for employee users
 public class LandingPageUI extends JFrame {
 
     private final JPanel contentPanel;
@@ -24,12 +21,16 @@ public class LandingPageUI extends JFrame {
     private final WorkHoursTrackingService workHoursTrackingService;
     private final NotificationService notificationService;
     private final Employee employee;
-    private final EmployeeService employeeService; // EmployeeService reference
+    private final EmployeeService employeeService;
 
-    private final CreateReview createReview; // Add CreateReview reference
+    private final CreateReview createReview;
 
     // Constructor
-    public LandingPageUI(Employee employee, RewardService rewardService, WorkHoursTrackingService workHoursService, NotificationService notificationService, EmployeeService employeeService) {
+    public LandingPageUI(Employee employee,
+                         RewardService rewardService,
+                         WorkHoursTrackingService workHoursService,
+                         NotificationService notificationService,
+                         EmployeeService employeeService) {
         this.employee = employee;
         this.rewardService = rewardService;
         this.workHoursTrackingService = workHoursService;
@@ -42,105 +43,136 @@ public class LandingPageUI extends JFrame {
         setSize(900, 700);
         setLocationRelativeTo(null);
 
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+
         contentPanel = new JPanel(new CardLayout());
+        mainPanel.add(createTopPanel(), BorderLayout.NORTH);
+        mainPanel.add(contentPanel, BorderLayout.CENTER);
+        mainPanel.add(createFooter(), BorderLayout.SOUTH);
 
-        add(createTopPanel(), BorderLayout.NORTH);
-        add(contentPanel, BorderLayout.CENTER);
-        add(createFooter(), BorderLayout.SOUTH);
-
-        showRewardsPage(); // Default page display
+        setContentPane(mainPanel);
     }
 
-    // Top panel with navigation options
+    // Top navigation bar
     private JPanel createTopPanel() {
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        topPanel.setBackground(Color.LIGHT_GRAY);
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new FlowLayout());
 
         JButton rewardsButton = new JButton("Rewards");
         rewardsButton.addActionListener(e -> showRewardsPage());
+        topPanel.add(rewardsButton);
 
         JButton workHoursButton = new JButton("Work Hours");
         workHoursButton.addActionListener(e -> showWorkHoursPage());
+        topPanel.add(workHoursButton);
 
         JButton jobListingsButton = new JButton("Job Listings");
         jobListingsButton.addActionListener(e -> showJobListingsPage());
+        topPanel.add(jobListingsButton);
+
+        JButton leaveRequestButton = new JButton("Leave Request");
+        leaveRequestButton.addActionListener(e -> showLeaveRequestPage());
+        topPanel.add(leaveRequestButton);
 
         JButton reportsButton = new JButton("Reports");
         reportsButton.addActionListener(e -> showReportsOptionsPage());
-
-        JButton reviewsButton = new JButton("Reviews"); // New Review button
-        reviewsButton.addActionListener(e -> showReviewPage());
-
-        topPanel.add(rewardsButton);
-        topPanel.add(workHoursButton);
-        topPanel.add(jobListingsButton);
         topPanel.add(reportsButton);
-        topPanel.add(reviewsButton); // Add the reviews button
+
+        JButton reviewButton = new JButton("Performance Review");
+        reviewButton.addActionListener(e -> showReviewPage());
+        topPanel.add(reviewButton);
 
         return topPanel;
     }
 
-    // Show Rewards Page
+    // Rewards Page
     private void showRewardsPage() {
         contentPanel.removeAll();
-        contentPanel.add(new RewardsPage(employee, rewardService));
+        RewardsPage rewardsPage = new RewardsPage(employee, rewardService);
+        contentPanel.add(rewardsPage);
         contentPanel.revalidate();
         contentPanel.repaint();
     }
 
-    // Show Work Hours Page
+    // Work Hours Page
     private void showWorkHoursPage() {
         contentPanel.removeAll();
-        contentPanel.add(new WorkHoursPage(employee, workHoursTrackingService));
+        WorkHoursPage workHoursPage = new WorkHoursPage(employee, workHoursTrackingService);
+        contentPanel.add(workHoursPage);
         contentPanel.revalidate();
         contentPanel.repaint();
     }
 
-    // Show Job Listings Page
+    // Job Listings Page
     private void showJobListingsPage() {
         contentPanel.removeAll();
-        contentPanel.add(new JobListingsPage());
+        JobListingsPage jobListingsPage = new JobListingsPage();
+        contentPanel.add(jobListingsPage);
         contentPanel.revalidate();
         contentPanel.repaint();
     }
 
-    // Show Reports Options Page
+    // Reports Options Page
     private void showReportsOptionsPage() {
         contentPanel.removeAll();
-        contentPanel.add(new ReportsOptionsPage(employee, employeeService, notificationService));
+        ReportsOptionsPage reportsOptionsPage = new ReportsOptionsPage(employee, employeeService, notificationService);
+        contentPanel.add(reportsOptionsPage);
         contentPanel.revalidate();
         contentPanel.repaint();
     }
 
-    // Show Review Page (new functionality)
+    // Leave Request Page
+    private void showLeaveRequestPage() {
+        contentPanel.removeAll();
+        LeaveRequestPage leaveRequestPage = new LeaveRequestPage(employee, notificationService);
+        contentPanel.add(leaveRequestPage);
+        contentPanel.revalidate();
+        contentPanel.repaint();
+    }
+
+    // Review Page for performance management
     private void showReviewPage() {
         contentPanel.removeAll();
-        contentPanel.add(new ReviewPage(createReview, employee));
+        ReviewPage reviewPage = new ReviewPage(createReview, employee);
+        contentPanel.add(reviewPage);
         contentPanel.revalidate();
         contentPanel.repaint();
     }
 
-    // Footer
+    // Footer with logout functionality
     private JPanel createFooter() {
-        JPanel footer = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        footer.setBackground(Color.DARK_GRAY);
+        JPanel footerPanel = new JPanel();
+        footerPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        JLabel footerLabel = new JLabel("© 2023 Company Name");
-        footerLabel.setForeground(Color.WHITE);
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.addActionListener((ActionEvent e) -> {
+            int confirmed = JOptionPane.showConfirmDialog(this,
+                    "Are you sure you want to logout?",
+                    "Logout Confirmation",
+                    JOptionPane.YES_NO_OPTION);
 
-        footer.add(footerLabel);
-        return footer;
+            if (confirmed == JOptionPane.YES_OPTION) {
+                dispose();
+                // You can navigate to the login page or exit
+                System.out.println("Logged out successfully!");
+            }
+        });
+        footerPanel.add(logoutButton);
+
+        return footerPanel;
     }
 
+    // Main method for testing
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            Employee employee = EmployeeData.getEmployees().get(0); // Example employee
+            Employee employee = EmployeeData.getEmployeeById(1); // Example employee
             RewardService rewardService = new RewardService(RewardData.all(), CouponData.all(), new NotificationService());
-            WorkHoursTrackingService workHoursService = new WorkHoursTrackingService(new EmployeeService(), new NotificationService());
-            NotificationService notificationService = new NotificationService();
-            EmployeeService employeeService = new EmployeeService();
-
-            new LandingPageUI(employee, rewardService, workHoursService, notificationService, employeeService).setVisible(true);
+            WorkHoursTrackingService workHoursService = new WorkHoursTrackingService(
+                    new EmployeeService(),
+                    new NotificationService()
+            );
+            new LandingPageUI(employee, rewardService, workHoursService, new NotificationService(), new EmployeeService()).setVisible(true);
         });
     }
 }

@@ -14,6 +14,7 @@ public class Employee {
     private int leaveSum;
     private double salary;
     private JobPosition jobPosition; // New attribute
+    private int getLeaveBalance;
 
     // Constructor with employeeId, name and jobPosition
     public Employee(int employeeId, String name, Company company, JobPosition jobPosition) {
@@ -92,4 +93,11 @@ public class Employee {
     public void setJobPosition(JobPosition jobPosition) {
         this.jobPosition = jobPosition;
     }
+    public int getLeaveBalance() {
+        return leaveBalance;
+    }
+    public void setLeaveBalance(int leaveBalance) {
+        this.leaveBalance = leaveBalance;
+    }
+
 }
