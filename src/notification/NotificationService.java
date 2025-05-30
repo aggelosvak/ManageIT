@@ -1,7 +1,6 @@
 package notification;
 
-import review.Review;
-
+import model.Review; // <-- Add this import
 import java.time.LocalDateTime;
 
 public class NotificationService {
@@ -35,6 +34,7 @@ public class NotificationService {
                 "\nDate: " + review.getReviewDate() +
                 "\nRatings: " + review.getRatings();
     }
+
     public void sendNotification(Notification notification) {
         // Implementation for sending notifications, e.g., save to database, log, or display.
         notification.displayNotification(); // Simple print simulation
@@ -43,7 +43,6 @@ public class NotificationService {
     private int generateNotificationId() {
         return (int) (Math.random() * 100000);
     }
-
 
     public void notifyManager(int employeeId, String notificationTitle, String notificationMessage) {
         System.out.println("Notification sent to manager:");
@@ -56,7 +55,4 @@ public class NotificationService {
         System.out.println("Notification Title: " + title);
         System.out.println("Message: " + message);
     }
-
-
 }
-

@@ -7,7 +7,6 @@ import employee.Employee;
 import employee.EmployeeService;
 import notification.NotificationService;
 import pages.*;
-import review.CreateReview;
 import workhours.WorkHoursTrackingService;
 
 import javax.swing.*;
@@ -23,8 +22,6 @@ public class LandingPageUI extends JFrame {
     private final Employee employee;
     private final EmployeeService employeeService;
 
-    private final CreateReview createReview;
-
     // Constructor
     public LandingPageUI(Employee employee,
                          RewardService rewardService,
@@ -36,7 +33,6 @@ public class LandingPageUI extends JFrame {
         this.workHoursTrackingService = workHoursService;
         this.notificationService = notificationService;
         this.employeeService = employeeService;
-        this.createReview = new CreateReview(employeeService, notificationService);
 
         setTitle("Landing Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,9 +75,7 @@ public class LandingPageUI extends JFrame {
         reportsButton.addActionListener(e -> showReportsOptionsPage());
         topPanel.add(reportsButton);
 
-        JButton reviewButton = new JButton("Review");
-        reviewButton.addActionListener(e -> showReviewPage());
-        topPanel.add(reviewButton);
+        // Removed Review Button from the navigation bar
 
         return topPanel;
     }
@@ -127,15 +121,6 @@ public class LandingPageUI extends JFrame {
         contentPanel.removeAll();
         LeaveRequestPage leaveRequestPage = new LeaveRequestPage(employee, notificationService);
         contentPanel.add(leaveRequestPage);
-        contentPanel.revalidate();
-        contentPanel.repaint();
-    }
-
-    // Review Page for performance management
-    private void showReviewPage() {
-        contentPanel.removeAll();
-        ReviewPage reviewPage = new ReviewPage(createReview, employee);
-        contentPanel.add(reviewPage);
         contentPanel.revalidate();
         contentPanel.repaint();
     }
