@@ -79,7 +79,7 @@ public class LandingPageUI extends JFrame {
         reportsButton.addActionListener(e -> showReportsOptionsPage());
         topPanel.add(reportsButton);
 
-        JButton reviewButton = new JButton("Performance Review");
+        JButton reviewButton = new JButton("Review");
         reviewButton.addActionListener(e -> showReviewPage());
         topPanel.add(reviewButton);
 
