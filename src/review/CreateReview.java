@@ -1,6 +1,6 @@
 package review;
 
-import employee.EmployeeService; // Correctly referring to the EmployeeService package
+import employee.EmployeeService;
 import notification.NotificationService;
 import review.Review;
 
@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class CreateReview {
 
-    private final EmployeeService employeeService;  // Correct package reference
+    private final EmployeeService employeeService;
     private final NotificationService notificationService;
     private static final Logger LOGGER = Logger.getLogger(CreateReview.class.getName());
 

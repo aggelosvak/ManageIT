@@ -5,18 +5,17 @@ import java.util.Map;
 
 public class Review {
 
-    // Attributes
     private String employeeId;           // ID of the employee being reviewed
     private String reviewerId;           // ID of the reviewer
     private Timestamp reviewDate;        // Date/time of the review
     private Map<String, Integer> ratings; // Ratings for specific criteria
     private String description;          // A description or summary of the review
 
-    // Default Constructor
+
     public Review() {
     }
 
-    // Parameterized Constructor
+
     public Review(String employeeId, String reviewerId, Timestamp reviewDate, Map<String, Integer> ratings, String description) {
         this.employeeId = employeeId;
         this.reviewerId = reviewerId;
@@ -24,6 +23,10 @@ public class Review {
         this.ratings = ratings;
         this.setDescription(description); // Use setter for validation
     }
+    public <K, V> Review(String reviewer, Map<K, V> criteriaRatings, String description) {
+        this.description = description;
+    }
+
 
     // Setter for employeeId
     public void setEmployeeId(String employeeId) {
