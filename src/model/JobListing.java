@@ -60,6 +60,22 @@ public class JobListing {
         this.managerId = managerId;
     }
 
+    /**
+     * Returns the title of the job by delegating to the JobPosition.
+     * @return the job title
+     */
+    public String getTitle() {
+        return jobPosition != null ? jobPosition.getTitle() : null;
+    }
+
+    /**
+     * Returns the description of the job by delegating to the JobPosition.
+     * @return the job description
+     */
+    public String getDescription() {
+        return jobPosition != null ? jobPosition.getDescription() : null;
+    }
+
     @Override
     public String toString() {
         return String.format("%s (ID: %d, Open: %s, Date: %s, Manager ID: %d)",

@@ -6,14 +6,21 @@ public class Candidate {
     private String email; // Candidate's email address
     private String phoneNumber; // Candidate's phone number
     private String cv; // Candidate's CV or application details (optional)
+    private JobListing jobListing; // NEW: The job listing the candidate applied to
 
-    // Constructor
-    public Candidate(String id, String name, String email, String phoneNumber, String cv) {
+    // Updated Constructor
+    public Candidate(String id, String name, String email, String phoneNumber, String cv, JobListing jobListing) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.cv = cv;
+        this.jobListing = jobListing;
+    }
+
+    // OLD Constructor for backward compatibility
+    public Candidate(String id, String name, String email, String phoneNumber, String cv) {
+        this(id, name, email, phoneNumber, cv, null);
     }
 
     // Getters and Setters
@@ -57,6 +64,14 @@ public class Candidate {
         this.cv = cv;
     }
 
+    public JobListing getJobListing() {
+        return jobListing;
+    }
+
+    public void setJobListing(JobListing jobListing) {
+        this.jobListing = jobListing;
+    }
+
     // Method to update the CV
     public void updateCv(String newCv) {
         if (newCv == null || newCv.isEmpty()) {
@@ -89,6 +104,7 @@ public class Candidate {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", jobListingId=" + (jobListing != null ? jobListing.getId() : "null") +
                 '}';
     }
 
@@ -99,6 +115,7 @@ public class Candidate {
                 "Name: " + name + "\n" +
                 "Email: " + email + "\n" +
                 "Phone: " + phoneNumber + "\n" +
-                "CV: " + (hasCv() ? cv : "No CV provided");
+                "CV: " + (hasCv() ? cv : "No CV provided") + "\n" +
+                "JobListing ID: " + (jobListing != null ? jobListing.getId() : "none");
     }
 }

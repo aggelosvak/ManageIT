@@ -48,7 +48,7 @@ public class ManagerLandingPage extends JFrame {
 
         jobListingsBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new JobListingUploadPage().setVisible(true);
+                new JobListingsManagerPage().setVisible(true);
             }
         });
 
