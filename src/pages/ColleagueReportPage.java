@@ -26,6 +26,18 @@ public class ColleagueReportPage extends JPanel {
         // Fetch and display colleagues
         List<Employee> colleagues = employeeService.getColleagues(employee.getEmployeeId());
         colleagueDropdown = new JComboBox<>(colleagues.toArray(new Employee[0]));
+        // Custom renderer to show employee names
+        colleagueDropdown.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (value instanceof Employee) {
+                    Employee emp = (Employee) value;
+                    setText(emp.getName()); // Make sure getFullName() or similar exists
+                }
+                return this;
+            }
+        });
         add(new JLabel("Επιλέξτε Συνάδελφο:"));
         add(colleagueDropdown);
 

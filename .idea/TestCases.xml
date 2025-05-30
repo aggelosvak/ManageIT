@@ -1,0 +1,11 @@
+<testcases>
+    <testcase id="TC1">
+        <description>Manager logs in and sees dashboard</description>
+        <steps>
+            <step>Open app</step>
+            <step>Enter valid credentials</step>
+            <step>Click Login</step>
+        </steps>
+        <expectedResult>Manager dashboard appears with correct company</expectedResult>
+    </testcase>
+</testcases>
